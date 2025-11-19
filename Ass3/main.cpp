@@ -53,11 +53,11 @@ int str_concat(char str1[], char str2[], int str1_len){
             str1[i+n1] = str2[i];
         }
         str1[free-1] = '\0';
-        return 1;
+        return 0;
     }
 
 
-    return 0;
+    return 1;
 }
 
 
