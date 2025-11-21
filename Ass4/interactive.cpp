@@ -69,7 +69,6 @@ void InputEmployeeData() {
 #if !defined(_WIN32)
         disableRawMode();
 #endif
-        // FIX: Removed cin.ignore() here. The ENTER from menu selection is consumed by readKey().
         // Starting with a clean buffer ensures getline waits for the first input.
         getline(cin, newEmployee.firstName);
 
