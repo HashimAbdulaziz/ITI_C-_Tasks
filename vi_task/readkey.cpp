@@ -7,12 +7,9 @@
     #include <termios.h>
 #endif
 
-
 char lastReadCharacter = '\0';
 
-
 #if !defined(_WIN32)
-// Linux: enable raw mode
 void enableRawMode() {
     termios term;
     tcgetattr(STDIN_FILENO, &term);
@@ -30,6 +27,8 @@ Key readKey() {
         switch (ch2) {
             case 72: return KEY_UP;
             case 80: return KEY_DOWN;
+            case 75: return KEY_LEFT;  // Added
+            case 77: return KEY_RIGHT; // Added
             default: return KEY_OTHER;
         }
     }
@@ -38,45 +37,36 @@ Key readKey() {
     if (ch == 8)   return KEY_BACKSPACE;
     if (ch == 27)  return KEY_ESC;
 
-    // For normal printable keys:
     lastReadCharacter = (char)ch;
     return KEY_OTHER;
 
 #else
     enableRawMode();
-
     unsigned char c;
     read(STDIN_FILENO, &c, 1);
 
-    // -------- ESC HANDLING --------
     if (c == 27) {
         unsigned char next;
-
-        // Try reading second byte
         int result = read(STDIN_FILENO, &next, 1);
 
-        if (result == 0)
-            return KEY_ESC;  // ESC alone
+        if (result == 0) return KEY_ESC;
 
         if (next == '[') {
             unsigned char dir;
             read(STDIN_FILENO, &dir, 1);
-
             if (dir == 'A') return KEY_UP;
             if (dir == 'B') return KEY_DOWN;
-
+            if (dir == 'C') return KEY_RIGHT; // Added
+            if (dir == 'D') return KEY_LEFT;  // Added
             return KEY_OTHER;
         }
-
         return KEY_ESC;
     }
 
-    if (c == 10)  return KEY_ENTER;      // Enter
-    if (c == 127) return KEY_BACKSPACE;  // Backspace
+    if (c == 10)  return KEY_ENTER;
+    if (c == 127) return KEY_BACKSPACE;
 
-    // Normal printable key:
     lastReadCharacter = (char)c;
     return KEY_OTHER;
-
 #endif
 }

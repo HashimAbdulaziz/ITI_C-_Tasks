@@ -1,10 +1,11 @@
 #ifndef READKEY_H
 #define READKEY_H
 
-// Key codes your program will use
 enum Key {
     KEY_UP,
     KEY_DOWN,
+    KEY_LEFT,  // Added
+    KEY_RIGHT, // Added
     KEY_ENTER,
     KEY_BACKSPACE,
     KEY_ESC,
@@ -22,3 +23,4 @@ void enableRawMode();
 Key readKey();
 
 #endif
+
