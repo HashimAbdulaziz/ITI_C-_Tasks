@@ -11,12 +11,12 @@ private:
     int capacity;
     int topIndex;
 
+    void resize();
+
 public:
-    // Constructor & Destructor
     Stack(int size = 100);
     ~Stack();
 
-    // Standard Operations
     void push(T element);
     T pop();
     T peek() const;
@@ -29,12 +29,12 @@ public:
             os << "[ Empty Stack ]";
             return os;
         }
-        os << "[ Top: ";
+        os << "[ ";
         for (int i = s.topIndex; i >= 0; i--) {
             os << s.arr[i];
             if (i > 0) os << " | ";
         }
-        os << " :Bottom ]";
+        os << " ] (Capacity: " << s.capacity << ")";
         return os;
     }
 };

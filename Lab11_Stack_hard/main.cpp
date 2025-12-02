@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
 
-    Stack<int> s1(5);
+    Stack<int> s1(10);
 
     s1.push(10);
     s1.push(20);
@@ -27,6 +27,13 @@ int main() {
     s2.push(3.33);
 
     cout << s2 << endl;
+
+    Stack<string> s3(3);
+    s3.push("hello1");
+    s3.push("hello2");
+    s3.push("hello3");
+
+    cout << s3 << endl;
 
 
     return 0;

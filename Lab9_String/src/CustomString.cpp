@@ -87,7 +87,7 @@ CustomString CustomString::operator+(const CustomString& other) {
     return newStr;
 }
 
-// Equality Operator (==)
+// Equality Operator ==
 bool CustomString::operator==(const CustomString& other) {
     if (length != other.length) return false;
 

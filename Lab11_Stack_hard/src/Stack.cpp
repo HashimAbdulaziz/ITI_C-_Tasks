@@ -20,12 +20,36 @@ Stack<T>::~Stack() {
     delete[] arr;
 }
 
+
+template <typename T>
+void Stack<T>::resize() {
+    int newCapacity = capacity * 2;
+
+    // Print to console so you see it happening
+    cout << ">> Stack is full. Resizing from " << capacity
+         << " to " << newCapacity << "..." << endl;
+
+    // Create new larger array
+    T* newArr = new T[newCapacity];
+
+    // Copy old elements
+    for (int i = 0; i <= topIndex; i++) {
+        newArr[i] = arr[i];
+    }
+
+    // Delete old array
+    delete[] arr;
+
+    // Update pointers and variables
+    arr = newArr;
+    capacity = newCapacity;
+}
+
 // Push
 template <typename T>
 void Stack<T>::push(T element) {
     if (isFull()) {
-        cout << "Error: Stack is full!" << endl;
-        return;
+        resize();
     }
     topIndex++;
     arr[topIndex] = element;
@@ -36,7 +60,7 @@ template <typename T>
 T Stack<T>::pop() {
     if (isEmpty()) {
         cout << "Error: Stack is empty!" << endl;
-        return T(); // Return default value
+        return T();
     }
     T poppedValue = arr[topIndex];
     topIndex--;
