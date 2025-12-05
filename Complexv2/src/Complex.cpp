@@ -9,10 +9,9 @@ Complex::Complex(double r, double i) : real(r), imag(i) {}
 double Complex::getReal() const { return real; }
 double Complex::getImag() const { return imag; }
 void Complex::setReal(double r) { real = r; }
-void Complex::setImag(double i) { imag = i; }
+void Complex::seatImag(double i) { imag = i; }
 
-
-// --- Arithmetic Operators ---
+// --- Compound Assignment Operators ---
 Complex& Complex::operator+=(const Complex& other) {
     this->real += other.real;
     this->imag += other.imag;
@@ -34,19 +33,17 @@ Complex& Complex::operator*=(const Complex& other) {
 
 Complex& Complex::operator/=(const Complex& other) {
     double denominator = (other.real * other.real) + (other.imag * other.imag);
-
     if (denominator == 0) {
         std::cerr << "Error: Division by zero!" << std::endl;
         return *this;
     }
-
     double oldReal = this->real;
     this->real = ((oldReal * other.real) + (this->imag * other.imag)) / denominator;
     this->imag = ((this->imag * other.real) - (oldReal * other.imag)) / denominator;
     return *this;
 }
 
-
+// --- Compound Assignment with Scalars ---
 Complex& Complex::operator+=(double rhs) {
     this->real += rhs;
     return *this;
@@ -73,6 +70,48 @@ Complex& Complex::operator/=(double rhs) {
     return *this;
 }
 
+// --- Unary Operators ---
+
+// Unary Minus (Negates both parts)
+Complex Complex::operator-() const {
+    return Complex(-real, -imag);
+}
+
+// Unary Plus (Returns copy)
+Complex Complex::operator+() const {
+    return *this;
+}
+
+// --- Increment / Decrement Operators ---
+
+// Prefix Increment (++c)
+// Increases Real part by 1, returns reference to self
+Complex& Complex::operator++() {
+    this->real += 1.0;
+    return *this;
+}
+
+// Prefix Decrement (--c)
+Complex& Complex::operator--() {
+    this->real -= 1.0;
+    return *this;
+}
+
+// Postfix Increment (c++)
+// Makes a copy, increments self, returns the copy
+Complex Complex::operator++(int) {
+    Complex temp = *this;
+    ++(*this); // Call prefix operator
+    return temp;
+}
+
+// Postfix Decrement (c--)
+Complex Complex::operator--(int) {
+    Complex temp = *this;
+    --(*this); // Call prefix operator
+    return temp;
+}
+
 // --- Binary Operators ---
 Complex operator+(Complex lhs, const Complex& rhs) {
     lhs += rhs;
@@ -94,7 +133,6 @@ Complex operator/(Complex lhs, const Complex& rhs) {
     return lhs;
 }
 
-
 // --- Comparison Operators ---
 bool Complex::operator==(const Complex& other) const {
     return (real == other.real) && (imag == other.imag);
@@ -104,8 +142,7 @@ bool Complex::operator!=(const Complex& other) const {
     return !(*this == other);
 }
 
-
-// Cout <<
+// --- IO Stream Operators ---
 std::ostream& operator<<(std::ostream& os, const Complex& c) {
     os << "(" << c.real;
     if (c.imag >= 0) {
@@ -117,4 +154,22 @@ std::ostream& operator<<(std::ostream& os, const Complex& c) {
     return os;
 }
 
+std::istream& operator>>(std::istream& is, Complex& c) {
+    // Simple input format: reads two numbers.
+    // Example input: 3 4
+    is >> c.real >> c.imag;
+    return is;
+}
 
+// --- Utilities ---
+double Complex::magnitude() const {
+    return std::sqrt(real * real + imag * imag);
+}
+
+Complex Complex::conjugate() const {
+    return Complex(real, -imag);
+}
+
+double Complex::phase() const {
+    return std::atan2(imag, real);
+}

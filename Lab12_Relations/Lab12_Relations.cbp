@@ -2,26 +2,28 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Stack_hardv2" />
+		<Option title="Lab12_Relations" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/Stack_hardv2" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/Lab12_Relations" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/Stack_hardv2" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Lab12_Relations" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Circle.h" />
+		<Unit filename="include/Line.h" />
+		<Unit filename="include/Picture.h" />
+		<Unit filename="include/Point.h" />
+		<Unit filename="include/Rectangle.h" />
+		<Unit filename="include/Square.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Circle.cpp" />
+		<Unit filename="src/Line.cpp" />
+		<Unit filename="src/Picture.cpp" />
+		<Unit filename="src/Point.cpp" />
+		<Unit filename="src/Rectangle.cpp" />
+		<Unit filename="src/Square.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

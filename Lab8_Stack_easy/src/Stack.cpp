@@ -5,31 +5,31 @@ Stack::Stack(int capacity): capacity(capacity), tos(-1) {
 }
 
 void Stack::push(int value) {
-    // 1. Check overflow
+    // Check overflow
     if (tos == capacity - 1) {
         std::cerr << "Stack overflow! Cannot push.\n";
         return;
     }
 
-    // 2. Pre-increment TOS to point to next empty slot
+    // increment tos
     ++tos;
 
-    // 3. Store the value
+    // Store the value
     arr[tos] = value;
 }
 
 
 int Stack::pop() {
-    // 1. Check underflow
+    // Check underflow
     if (tos == -1) {
         std::cerr << "Stack underflow! Cannot pop.\n";
         return -1; // or throw an exception
     }
 
-    // 2. Get the top value
+    // Get the top value
     int value = arr[tos];
 
-    // 3. Decrement the top index
+    // Decrement the top index
     --tos;
 
     return value;
@@ -69,7 +69,8 @@ std::ostream& operator<<(std::ostream& out, const Stack& s) {
    and used the default the array will be the same in both
    when deleting one the other will points to nothing  */
 Stack::Stack(const Stack& other) : capacity(other.capacity), tos(other.tos){
-    arr = new int[capacity];   // allocate new memory
+    // allocate new memory
+    arr = new int[capacity];
 
     // copy all elements
     for (int i = 0; i <= tos; ++i) {
@@ -80,20 +81,21 @@ Stack::Stack(const Stack& other) : capacity(other.capacity), tos(other.tos){
 
 // --- Copy Assignment Operator ---
 Stack& Stack::operator=(const Stack& other) {
-    if (this == &other)  // check self-assignment
+    // check self-assignment
+    if (this == &other)
         return *this;
 
-    // 1. Delete old memory
+    // Delete old memory
     delete[] arr;
 
-    // 2. Copy capacity and tos
+    // Copy capacity and tos
     capacity = other.capacity;
     tos = other.tos;
 
-    // 3. Allocate new memory
+    // Allocate new memory
     arr = new int[capacity];
 
-    // 4. Copy elements
+    // Copy elements
     for (int i = 0; i <= tos; ++i) {
         arr[i] = other.arr[i];
     }
